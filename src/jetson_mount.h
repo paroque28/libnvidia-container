@@ -11,7 +11,7 @@
 int resolve_symlink(struct error *, const char *, char *);
 void unmount(const char *);
 
-char **mount_jetson_files(struct error *, const char *, const struct nvc_container *, char * [], size_t);
+char **mount_jetson_files(struct error *, const char *, const struct nvc_container *, const char *, char * [], size_t);
 int create_jetson_symlinks(struct error *, const char *, const struct nvc_container *, char * [], size_t);
 
 #endif /* HEADER_JETSON_MOUNT_H */

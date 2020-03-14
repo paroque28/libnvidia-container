@@ -486,15 +486,15 @@ nvc_driver_mount(struct nvc_context *ctx, const struct nvc_container *cnt, const
 
         log_info("mount jetson libraries");
         if (info->jetson->libs != NULL && info->jetson->nlibs > 0) {
-                if ((tmp = (const char **)mount_jetson_files(&ctx->err, ctx->cfg.root, cnt, info->jetson->libs, info->jetson->nlibs)) == NULL)
+                if ((tmp = (const char **)mount_jetson_files(&ctx->err, ctx->cfg.root, cnt, cnt->cfg.libs_dir, info->jetson->libs, info->jetson->nlibs)) == NULL)
                         goto fail;
                 ptr = array_append(ptr, tmp, array_size(tmp));
                 free(tmp);
         }
 
         log_info("mount jetson dirs");
-        if (info->jetson->libs != NULL && info->jetson->nlibs > 0) {
-                if ((tmp = (const char **)mount_jetson_files(&ctx->err, ctx->cfg.root, cnt, info->jetson->dirs, info->jetson->ndirs)) == NULL)
+        if (info->jetson->dirs != NULL && info->jetson->ndirs > 0) {
+                if ((tmp = (const char **)mount_jetson_files(&ctx->err, ctx->cfg.root, cnt, NULL, info->jetson->dirs, info->jetson->ndirs)) == NULL)
                         goto fail;
                 ptr = array_append(ptr, tmp, array_size(tmp));
                 free(tmp);
