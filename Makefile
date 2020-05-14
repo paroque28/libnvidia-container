@@ -322,6 +322,16 @@ docker-%:
                     -f $(MAKE_DIR)/Dockerfile.$${image%%:*} -t $(LIB_NAME):$${image/:} . ;\
 	$(DOCKER) run --rm -v $(DIST_DIR)/$${image/:}:/mnt:Z -e TAG -e DISTRIB -e SECTION $(LIB_NAME):$${image/:}
 
+docker-arm64: SHELL:=/bin/bash
+docker-arm64:
+	$(DOCKER) build --network=host \
+                    --build-arg IMAGESPEC=arm64v8/ubuntu \
+                    --build-arg USERSPEC=$(UID):$(GID) \
+                    --build-arg WITH_LIBELF=$(WITH_LIBELF) \
+                    --build-arg WITH_TIRPC=$(WITH_TIRPC) \
+                    --build-arg WITH_SECCOMP=$(WITH_SECCOMP) \
+                    -f $(MAKE_DIR)/Dockerfile.ubuntu.arm64 -t $(LIB_NAME):arm64 . ;\
+
 podman: SHELL:=/bin/bash
 podman:
 	$(MKDIR) -p $(DIST_DIR)/arm/ubuntu ;\
